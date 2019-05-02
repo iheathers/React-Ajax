@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
+import Axios from 'axios';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
         author: 'Max'
+    }
+
+    dataPostedHandler = () =>{
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        }
+        Axios.post('https://jsonplaceholder.typicode.com/posts', data)
+        .then(response => {
+            console.log(response)
+        })
     }
 
     render () {
@@ -22,7 +35,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.dataPostedHandler}>Add Post</button>
             </div>
         );
     }
